@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000; // Изменил на 10000
 
 // Разрешаем все CORS запросы
 app.use(cors());
@@ -144,8 +144,7 @@ app.get('/health', (req, res) => {
     });
 });
 
-// Старт сервера
-const PORT = process.env.PORT || 3000;
+// Старт сервера (УБРАЛ повторное объявление PORT)
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Highlight Proxy Server running on port ${PORT}`);
     console.log(`Proxy endpoint: http://0.0.0.0:${PORT}/proxy`);
