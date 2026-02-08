@@ -16,6 +16,19 @@ app.use((req, res, next) => {
     next();
 });
 
+// Главная страница
+app.get('/', (req, res) => {
+    res.json({
+        service: 'Highlight Loader Proxy',
+        version: '1.0.0',
+        endpoints: {
+            proxy: '/proxy',
+            health: '/health'
+        },
+        usage: 'Send POST requests to /proxy with action parameter'
+    });
+});
+
 // Основной прокси endpoint
 app.all('/proxy', async (req, res) => {
     try {
@@ -132,8 +145,9 @@ app.get('/health', (req, res) => {
 });
 
 // Старт сервера
-app.listen(PORT, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Highlight Proxy Server running on port ${PORT}`);
-    console.log(`Proxy endpoint: http://localhost:${PORT}/proxy`);
-    console.log(`Health check: http://localhost:${PORT}/health`);
+    console.log(`Proxy endpoint: http://0.0.0.0:${PORT}/proxy`);
+    console.log(`Health check: http://0.0.0.0:${PORT}/health`);
 });
